@@ -6,12 +6,8 @@ const StyledHeader = styled.h1`
   margin-top: 2em;
 `;
 
-const Header = () => {
-  return (
-    <StyledHeader>
-      Welcome to Telexgram, best chat app in the universe.
-    </StyledHeader>
-  );
+const Header = props => {
+  return <StyledHeader>{props.text}</StyledHeader>;
 };
 
 export default Header;

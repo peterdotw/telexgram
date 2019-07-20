@@ -27,7 +27,7 @@ const Home = () => {
     <>
       <Layout />
       <>
-        <Header />
+        <Header text="Welcome to Telexgram, best chat app in the universe." />
         <Counter count={count} />
       </>
     </>
