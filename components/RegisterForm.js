@@ -25,7 +25,7 @@ const StyledButton = styled.button`
   font-size: 1.5em;
 `;
 
-const Form = () => {
+const RegisterForm = () => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -84,4 +84,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default RegisterForm;

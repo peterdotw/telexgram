@@ -32,4 +32,12 @@ router.post("/register", (req, res) => {
   }
 });
 
+router.get("/login", (req, res) => {
+  return res.send("logged in");
+});
+
+router.post("/login", (req, res) => {
+  return res.redirect("/login");
+});
+
 module.exports = router;

@@ -1,7 +1,7 @@
 import Layout from "../layout/Layout";
 
 import Header from "../components/Header";
-import Form from "../components/Form";
+import RegisterForm from "../components/RegisterForm";
 
 const Register = () => {
   return (
@@ -9,7 +9,7 @@ const Register = () => {
       <Layout />
       <>
         <Header text="Register" />
-        <Form />
+        <RegisterForm />
       </>
     </>
   );

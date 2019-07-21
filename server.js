@@ -4,6 +4,7 @@ const app = express();
 const server = require("http").Server(app);
 const io = require("socket.io")(server);
 //const mongoose = require("mongoose");
+const helmet = require("helmet");
 
 const next = require("./nextInit").next;
 const nextApp = require("./nextInit").nextApp;
@@ -22,6 +23,7 @@ let numUsers = 0;
 nextApp
   .prepare()
   .then(() => {
+    app.use(helmet());
     app.use(express.urlencoded({ extended: false }));
     app.use("/", require("./routes/index.js"));
     app.use(compression());

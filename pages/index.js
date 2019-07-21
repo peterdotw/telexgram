@@ -5,6 +5,8 @@ import Layout from "../layout/Layout";
 
 import Header from "../components/Header";
 import Counter from "../components/Counter";
+import LoginForm from "../components/LoginForm";
+import Paragraph from "../components/Paragraph";
 
 var socket;
 
@@ -29,6 +31,8 @@ const Home = () => {
       <>
         <Header text="Welcome to Telexgram, best chat app in the universe." />
         <Counter count={count} />
+        <LoginForm />
+        <Paragraph />
       </>
     </>
   );
