@@ -9,6 +9,11 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   text-align: center;
+
+  @media only screen and (max-width: 768px) {
+    width: 280px;
+    height: 500px;
+  }
 `;
 
 export default Wrapper;

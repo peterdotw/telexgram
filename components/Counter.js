@@ -8,6 +8,11 @@ const StyledCounter = styled.p`
   font-size: 2em;
   text-align: center;
   margin-top: 2em;
+
+  @media only screen and (max-width: 768px) {
+    margin-top: 0.8em;
+    margin-bottom: 0.8em;
+  }
 `;
 
 const Counter = () => {

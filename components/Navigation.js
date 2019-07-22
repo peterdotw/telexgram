@@ -13,6 +13,13 @@ const StyledNav = styled.nav`
   position: fixed;
   top: 0;
   padding: 30px 50px;
+
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
+    text-align: center;
+    position: static;
+    padding: 20px 40px;
+  }
 `;
 
 const StyledUl = styled.ul`
@@ -20,12 +27,21 @@ const StyledUl = styled.ul`
   font-size: 16px;
   list-style: none;
 
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
+  }
+
   li {
     margin-left: 40px;
     cursor: pointer;
 
     :hover {
       color: #39ede1;
+    }
+
+    @media only screen and (max-width: 768px) {
+      margin: 0;
+      margin-top: 2em;
     }
   }
 `;

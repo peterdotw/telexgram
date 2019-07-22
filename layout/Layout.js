@@ -22,11 +22,14 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
+  }
 }
 
 #__next {
   width: 100%;
-  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
