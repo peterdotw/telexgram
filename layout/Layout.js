@@ -9,12 +9,28 @@ const GlobalStyle = createGlobalStyle`
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body, button, input {
+  font-family: ${({ theme }) => theme.font.primary};
 }
 
 body {
-  font-family: ${({ theme }) => theme.font.primary};
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#__next {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 `;
 

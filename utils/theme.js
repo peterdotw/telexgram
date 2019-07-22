@@ -1,6 +1,6 @@
 const theme = {
   font: {
-    primary: "'Helvetica', sans-serif"
+    primary: "'Consolas', sans-serif"
   }
 };
 

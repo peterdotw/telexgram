@@ -1,15 +1,17 @@
 import Layout from "../layout/Layout";
 
-import Header from "../components/Header";
+import Navigation from "../components/Navigation";
 import RegisterForm from "../components/RegisterForm";
+import Counter from "../components/Counter";
 
 const Register = () => {
   return (
     <>
       <Layout />
       <>
-        <Header text="Register" />
+        <Navigation />
         <RegisterForm />
+        <Counter />
       </>
     </>
   );

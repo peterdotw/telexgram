@@ -3,19 +3,19 @@ import styled from "styled-components";
 
 const StyledParagraph = styled.p`
   text-align: center;
-  margin-top: 1em;
+  margin-top: 3em;
+  font-size: 10px;
+  font-weight: 300;
 `;
 
 const StyledLink = styled.a`
-  font-size: 1em;
-  cursor: pointer;
-
   :hover {
-    color: hotpink;
+    color: #39ede1;
+    cursor: pointer;
   }
 `;
 
-const Paragraph = () => (
+const BottomText = () => (
   <StyledParagraph>
     Don't have an account?{" "}
     <Link href="/register">
@@ -25,4 +25,4 @@ const Paragraph = () => (
   </StyledParagraph>
 );
 
-export default Paragraph;
+export default BottomText;

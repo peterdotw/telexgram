@@ -4,16 +4,20 @@
   "description": "Best chat app in the universe.",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon server.js",
+    "dev": "nodemon -w server.js server.js",
     "build": "next build",
-    "start": "next start"
+    "start": "cross-env NODE_ENV=production node server.js",
+    "export": "next export",
+    "deploy": "npm run build && npm run export"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^3.0.6",
+    "bcryptjs": "^2.4.3",
     "compression": "^1.7.4",
+    "connect-flash": "^0.1.1",
     "express": "^4.17.1",
+    "express-session": "^1.16.2",
     "helmet": "^3.19.0",
     "mongoose": "^5.6.5",
     "next": "^9.0.2",

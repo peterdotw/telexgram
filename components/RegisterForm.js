@@ -1,28 +1,36 @@
 import { useState } from "react";
 import styled from "styled-components";
 
+import Wrapper from "../components/Wrapper";
+import Header from "../components/Header";
+
 const StyledForm = styled.form`
-  text-align: center;
-  margin-top: 2em;
-
-  label {
-    display: block;
-    font-size: 1.5em;
-
-    :last-of-type {
-      margin-top: 1em;
-    }
-  }
+  margin-top: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 `;
 
 const StyledInput = styled.input`
-  margin-top: 1em;
-  font-size: 1.5em;
+  font-size: 20px;
+  background-color: transparent;
+  color: black;
+  border: none;
+  border-bottom: 1px solid black;
+  width: 100%;
+  margin: 15px 0;
 `;
 
 const StyledButton = styled.button`
-  margin-top: 1em;
-  font-size: 1.5em;
+  margin-top: 50px;
+  background-color: black;
+  color: white;
+  border: none;
+  font-size: 14px;
+  padding: 10px 19px;
+  font-weight: 600;
+  display: block;
 `;
 
 const RegisterForm = () => {
@@ -43,44 +51,44 @@ const RegisterForm = () => {
   };
 
   return (
-    <StyledForm action="/register" method="POST">
-      <div>
-        <label htmlFor="login">Login:</label>
-        <StyledInput
-          type="text"
-          id="login"
-          name="login"
-          placeholder="Enter Login"
-          value={login}
-          onChange={handleLoginChange}
-        />
-      </div>
+    <Wrapper>
+      <Header text="Register" />
+      <StyledForm action="/register" method="POST">
+        <div>
+          <StyledInput
+            type="text"
+            id="login"
+            name="login"
+            placeholder="create login"
+            value={login}
+            onChange={handleLoginChange}
+          />
+        </div>
 
-      <div>
-        <label htmlFor="password">Password:</label>
-        <StyledInput
-          type="password"
-          id="password"
-          name="password"
-          placeholder="Create Password"
-          value={password}
-          onChange={handlePasswordChange}
-        />
-      </div>
+        <div>
+          <StyledInput
+            type="password"
+            id="password"
+            name="password"
+            placeholder="create password"
+            value={password}
+            onChange={handlePasswordChange}
+          />
+        </div>
 
-      <div>
-        <label htmlFor="confirmPassword">Confirm Password:</label>
-        <StyledInput
-          type="password"
-          id="confirmPassword"
-          name="confirmPassword"
-          placeholder="Confirm Password"
-          value={confirmPassword}
-          onChange={handleConfirmPasswordChange}
-        />
-      </div>
-      <StyledButton type="submit">Register</StyledButton>
-    </StyledForm>
+        <div>
+          <StyledInput
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            placeholder="confirm password"
+            value={confirmPassword}
+            onChange={handleConfirmPasswordChange}
+          />
+        </div>
+        <StyledButton type="submit">Register</StyledButton>
+      </StyledForm>
+    </Wrapper>
   );
 };
 

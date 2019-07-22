@@ -2,27 +2,32 @@ import { useState } from "react";
 import styled from "styled-components";
 
 const StyledForm = styled.form`
-  text-align: center;
-  margin-top: 2em;
-
-  label {
-    display: block;
-    font-size: 1.5em;
-
-    :last-of-type {
-      margin-top: 1em;
-    }
-  }
+  margin-top: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 `;
 
 const StyledInput = styled.input`
-  margin-top: 1em;
-  font-size: 1.5em;
+  font-size: 20px;
+  background-color: transparent;
+  color: black;
+  border: none;
+  border-bottom: 1px solid black;
+  width: 100%;
+  margin: 15px 0;
 `;
 
 const StyledButton = styled.button`
-  margin-top: 1em;
-  font-size: 1.5em;
+  margin-top: 50px;
+  background-color: black;
+  color: white;
+  border: none;
+  font-size: 14px;
+  padding: 10px 19px;
+  font-weight: 600;
+  display: block;
 `;
 
 const LoginForm = () => {
@@ -40,29 +45,27 @@ const LoginForm = () => {
   return (
     <StyledForm action="/login" method="POST">
       <div>
-        <label htmlFor="login">Login:</label>
         <StyledInput
           type="text"
           id="login"
           name="login"
-          placeholder=""
+          placeholder="login"
           value={login}
           onChange={handleLoginChange}
         />
       </div>
 
       <div>
-        <label htmlFor="password">Password:</label>
         <StyledInput
           type="password"
           id="password"
           name="password"
-          placeholder=""
+          placeholder="password"
           value={password}
           onChange={handlePasswordChange}
         />
       </div>
-      <StyledButton type="submit">Login</StyledButton>
+      <StyledButton type="submit">login</StyledButton>
     </StyledForm>
   );
 };

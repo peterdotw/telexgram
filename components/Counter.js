@@ -1,4 +1,8 @@
+import { useState, useEffect } from "react";
+import io from "socket.io-client";
 import styled from "styled-components";
+
+var socket;
 
 const StyledCounter = styled.p`
   font-size: 2em;
@@ -6,8 +10,22 @@ const StyledCounter = styled.p`
   margin-top: 2em;
 `;
 
-const Counter = props => {
-  return <StyledCounter>Online: {props.count}</StyledCounter>;
+const Counter = () => {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    socket = io({ transports: ["websocket"] });
+    console.log("connected");
+    socket.on("userCount", function(data) {
+      setCount(data.userCount);
+    });
+
+    return function cleanup() {
+      socket.close();
+    };
+  }, []);
+
+  return <StyledCounter>Online: {count}</StyledCounter>;
 };
 
 export default Counter;

@@ -3,21 +3,22 @@ const express = require("express");
 const app = express();
 const server = require("http").Server(app);
 const io = require("socket.io")(server);
-//const mongoose = require("mongoose");
+const mongoose = require("mongoose");
 const helmet = require("helmet");
+const session = require("express-session");
 
 const next = require("./nextInit").next;
 const nextApp = require("./nextInit").nextApp;
 const nextHandler = require("./nextInit").nextHandler;
 
 const port = process.env.PORT || 3000;
-/*
+
 const db = require("./config/keys").mongoURI;
 mongoose
   .connect(db, { useNewUrlParser: true })
-  .then(console.log("MongoDB connected"))
+  .then(() => console.log("MongoDB connected"))
   .catch(err => console.log(err));
-*/
+
 let numUsers = 0;
 
 nextApp
@@ -25,6 +26,13 @@ nextApp
   .then(() => {
     app.use(helmet());
     app.use(express.urlencoded({ extended: false }));
+    app.use(
+      session({
+        secret: "keyboard cat",
+        resave: true,
+        saveUninitialized: true
+      })
+    );
     app.use("/", require("./routes/index.js"));
     app.use(compression());
 
