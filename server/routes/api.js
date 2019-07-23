@@ -1,15 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
-const nextApp = require("../nextInit").nextApp;
-const nextHandler = require("../nextInit").nextHandler;
-
-const User = require("../models/User");
+const User = require("../../models/User");
 const bcrypt = require("bcryptjs");
-
-router.get("/register", (req, res) => {
-  return nextHandler(req, res);
-});
+const passport = require("passport");
 
 router.post("/register", (req, res, next) => {
   console.log(req.body);
@@ -26,20 +20,20 @@ router.post("/register", (req, res, next) => {
   }
 
   if (password.length < 6) {
-    errors.push({ msg: "Password too short!" });
+    errors.push({
+      msg: "Password too short! Must contain minimum 6 characters."
+    });
   }
 
   if (errors.length > 0) {
-    //TODO error handling for client and re-render page with errors array
-    //return nextApp.render(req, res, "/register", { errors });
     console.log(errors);
-    res.send(errors);
+    return res.status(400).json(errors);
   } else {
     User.findOne({ login: login }).then(user => {
       if (user) {
-        //TODO if user exists error handle for client
         errors.push({ msg: "User already exists!" });
-        res.send(errors);
+        console.log(errors);
+        return res.status(400).json(errors);
       } else {
         const newUser = new User({
           login,
@@ -54,11 +48,11 @@ router.post("/register", (req, res, next) => {
               .save()
               .then(user => {
                 console.log(newUser);
-                res.redirect("/");
               })
               .catch(err => console.log(err));
           });
         });
+        return res.status(200).json("Registered!");
       }
     });
   }
@@ -68,8 +62,15 @@ router.get("/login", (req, res) => {
   return res.send("logged in");
 });
 
-router.post("/login", (req, res) => {
-  return res.redirect("/login");
+router.post("/login", passport.authenticate("local"), function(req, res) {
+  console.log(req.body);
+  return res.status(200).json("Logged in!");
+});
+
+router.get("/logout", (req, res) => {
+  req.logout();
+  console.log("Logged out");
+  return res.status(200).json("Logged out!");
 });
 
 module.exports = router;

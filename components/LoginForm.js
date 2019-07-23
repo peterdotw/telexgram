@@ -1,38 +1,39 @@
 import { useState } from "react";
-import styled from "styled-components";
+import { useAlert } from "react-alert";
+import { useRouter } from "next/router";
+import axios from "axios";
 
-const StyledForm = styled.form`
-  margin-top: 45px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-`;
-
-const StyledInput = styled.input`
-  font-size: 20px;
-  background-color: transparent;
-  color: black;
-  border: none;
-  border-bottom: 1px solid black;
-  width: 100%;
-  margin: 15px 0;
-`;
-
-const StyledButton = styled.button`
-  margin-top: 50px;
-  background-color: black;
-  color: white;
-  border: none;
-  font-size: 14px;
-  padding: 10px 19px;
-  font-weight: 600;
-  display: block;
-`;
+import Wrapper from "./Wrapper";
+import Header from "./Header";
+import Text from "./Text";
+import BottomText from "./BottomText";
+import { StyledForm, StyledInput, StyledButton } from "./FormComponents";
 
 const LoginForm = () => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
+
+  const alert = useAlert();
+  const router = useRouter();
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    axios
+      .post(`/api/login`, { login, password })
+      .then(res => {
+        alert.show("You're now logged in!", { type: "success" });
+        console.log("Działa!");
+        setTimeout(() => {
+          router.push("/dashboard");
+        }, 1000);
+      })
+      .catch(err => {
+        if (err.response) {
+          console.log(err.response.data);
+          alert.show("Bad password!");
+        }
+      });
+  };
 
   const handleLoginChange = event => {
     setLogin(event.target.value);
@@ -43,30 +44,35 @@ const LoginForm = () => {
   };
 
   return (
-    <StyledForm action="/login" method="POST">
-      <div>
-        <StyledInput
-          type="text"
-          id="login"
-          name="login"
-          placeholder="login"
-          value={login}
-          onChange={handleLoginChange}
-        />
-      </div>
+    <Wrapper>
+      <Header text="Welcome to Telexgram" />
+      <Text />
+      <StyledForm onSubmit={handleSubmit}>
+        <div>
+          <StyledInput
+            type="text"
+            id="login"
+            name="login"
+            placeholder="login"
+            value={login}
+            onChange={handleLoginChange}
+          />
+        </div>
 
-      <div>
-        <StyledInput
-          type="password"
-          id="password"
-          name="password"
-          placeholder="password"
-          value={password}
-          onChange={handlePasswordChange}
-        />
-      </div>
-      <StyledButton type="submit">login</StyledButton>
-    </StyledForm>
+        <div>
+          <StyledInput
+            type="password"
+            id="password"
+            name="password"
+            placeholder="password"
+            value={password}
+            onChange={handlePasswordChange}
+          />
+        </div>
+        <StyledButton type="submit">log in</StyledButton>
+      </StyledForm>
+      <BottomText />
+    </Wrapper>
   );
 };
 

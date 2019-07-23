@@ -1,19 +1,20 @@
 import Layout from "../layout/Layout";
 
 import Navigation from "../components/Navigation";
-import RegisterForm from "../components/RegisterForm";
+import LogoutButton from "../components/LogoutButton";
 import Counter from "../components/Counter";
 
 import { AlertTemplate, options, AlertProvider } from "../config/alert";
 
-const Register = () => {
+const Dashboard = () => {
   return (
     <AlertProvider template={AlertTemplate} {...options}>
       <>
         <Layout />
         <>
           <Navigation />
-          <RegisterForm />
+          <h1>VoHiYo</h1>
+          <LogoutButton />
           <Counter />
         </>
       </>
@@ -21,4 +22,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Dashboard;

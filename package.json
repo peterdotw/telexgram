@@ -4,7 +4,7 @@
   "description": "Best chat app in the universe.",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon -w server.js server.js",
+    "dev": "nodemon server/server.js",
     "build": "next build",
     "start": "cross-env NODE_ENV=production node server.js",
     "export": "next export",
@@ -13,21 +13,27 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.19.0",
     "bcryptjs": "^2.4.3",
     "compression": "^1.7.4",
-    "connect-flash": "^0.1.1",
     "express": "^4.17.1",
     "express-session": "^1.16.2",
     "helmet": "^3.19.0",
     "mongoose": "^5.6.5",
     "next": "^9.0.2",
     "passport": "^0.4.0",
+    "passport-auth0": "^1.1.0",
     "passport-local": "^1.0.0",
+    "prop-types": "^15.7.2",
     "react": "^16.8.6",
+    "react-alert": "^5.5.0",
+    "react-alert-template-basic": "^1.0.0",
     "react-dom": "^16.8.6",
+    "react-transition-group": "^4.2.1",
     "socket.io": "^2.2.0",
     "socket.io-client": "^2.2.0",
-    "styled-components": "^4.3.2"
+    "styled-components": "^4.3.2",
+    "uid-safe": "^2.1.5"
   },
   "devDependencies": {
     "babel-plugin-styled-components": "^1.10.6"

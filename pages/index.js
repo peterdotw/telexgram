@@ -1,19 +1,23 @@
 import Layout from "../layout/Layout";
 
 import Navigation from "../components/Navigation";
-import Container from "../components/Container";
+import LoginForm from "../components/LoginForm";
 import Counter from "../components/Counter";
+
+import { AlertTemplate, options, AlertProvider } from "../config/alert";
 
 const Home = () => {
   return (
-    <>
-      <Layout />
+    <AlertProvider template={AlertTemplate} {...options}>
       <>
-        <Navigation />
-        <Container />
-        <Counter />
+        <Layout />
+        <>
+          <Navigation />
+          <LoginForm />
+          <Counter />
+        </>
       </>
-    </>
+    </AlertProvider>
   );
 };
 

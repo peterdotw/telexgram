@@ -6,14 +6,17 @@ const io = require("socket.io")(server);
 const mongoose = require("mongoose");
 const helmet = require("helmet");
 const session = require("express-session");
+const passport = require("passport");
 
-const next = require("./nextInit").next;
-const nextApp = require("./nextInit").nextApp;
-const nextHandler = require("./nextInit").nextHandler;
+const next = require("../config/nextInit").next;
+const nextApp = require("../config/nextInit").nextApp;
+const nextHandler = require("../config/nextInit").nextHandler;
 
 const port = process.env.PORT || 3000;
 
-const db = require("./config/keys").mongoURI;
+require("../config/passport")(passport);
+
+const db = require("../config/keys").mongoURI;
 mongoose
   .connect(db, { useNewUrlParser: true })
   .then(() => console.log("MongoDB connected"))
@@ -26,14 +29,22 @@ nextApp
   .then(() => {
     app.use(helmet());
     app.use(express.urlencoded({ extended: false }));
+    app.use(express.json());
     app.use(
       session({
-        secret: "keyboard cat",
-        resave: true,
-        saveUninitialized: true
+        secret: "Skitty",
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+          secure: false,
+          maxAge: 3600000
+        }
       })
     );
-    app.use("/", require("./routes/index.js"));
+    app.use(passport.initialize());
+    app.use(passport.session());
+    app.use("/api", require("./routes/api"));
+    app.use("/", require("./routes/client"));
     app.use(compression());
 
     io.on("connection", socket => {
@@ -54,7 +65,7 @@ nextApp
 
     server.listen(port, err => {
       if (err) throw err;
-      console.log("> Ready on http://localhost:3000");
+      console.log(`> Ready on port ${port}`);
     });
   })
   .catch(ex => {

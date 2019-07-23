@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 const StyledSpan = styled.span`
   font-size: 21px;
+  cursor: pointer;
 `;
 
 const StyledNav = styled.nav`
@@ -49,7 +50,9 @@ const StyledUl = styled.ul`
 const Navigation = () => {
   return (
     <StyledNav>
-      <StyledSpan>telexgram</StyledSpan>
+      <Link href={"/"}>
+        <StyledSpan>telexgram</StyledSpan>
+      </Link>
       <StyledUl>
         <Link href={"/about"}>
           <li>about</li>

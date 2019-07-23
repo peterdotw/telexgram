@@ -1,42 +1,38 @@
 import { useState } from "react";
-import styled from "styled-components";
+import { useAlert } from "react-alert";
+import { useRouter } from "next/router";
+import axios from "axios";
 
 import Wrapper from "../components/Wrapper";
 import Header from "../components/Header";
-
-const StyledForm = styled.form`
-  margin-top: 45px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-`;
-
-const StyledInput = styled.input`
-  font-size: 20px;
-  background-color: transparent;
-  color: black;
-  border: none;
-  border-bottom: 1px solid black;
-  width: 100%;
-  margin: 15px 0;
-`;
-
-const StyledButton = styled.button`
-  margin-top: 50px;
-  background-color: black;
-  color: white;
-  border: none;
-  font-size: 14px;
-  padding: 10px 19px;
-  font-weight: 600;
-  display: block;
-`;
+import { StyledForm, StyledInput, StyledButton } from "./FormComponents";
 
 const RegisterForm = () => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  const alert = useAlert();
+  const router = useRouter();
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    axios
+      .post(`/api/register`, { login, password, confirmPassword })
+      .then(res => {
+        alert.show("You're now registered!", { type: "success" });
+        console.log(res);
+        setTimeout(() => {
+          router.push("/");
+        }, 2000);
+      })
+      .catch(err => {
+        if (err.response) {
+          console.log(err.response.data);
+          alert.show(err.response.data[0].msg);
+        }
+      });
+  };
 
   const handleLoginChange = event => {
     setLogin(event.target.value);
@@ -53,7 +49,7 @@ const RegisterForm = () => {
   return (
     <Wrapper>
       <Header text="Register" />
-      <StyledForm action="/register" method="POST">
+      <StyledForm onSubmit={handleSubmit}>
         <div>
           <StyledInput
             type="text"
@@ -86,7 +82,7 @@ const RegisterForm = () => {
             onChange={handleConfirmPasswordChange}
           />
         </div>
-        <StyledButton type="submit">Register</StyledButton>
+        <StyledButton type="submit">register</StyledButton>
       </StyledForm>
     </Wrapper>
   );
