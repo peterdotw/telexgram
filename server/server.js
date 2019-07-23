@@ -47,15 +47,23 @@ nextApp
     app.use("/", require("./routes/client"));
     app.use(compression());
 
+    //TODO: properly working counter
     io.on("connection", socket => {
-      ++numUsers;
-      io.emit("userCount", { userCount: numUsers });
-      console.log(`Connected: ${numUsers} sockets connected`);
-
       socket.on("disconnect", () => {
         --numUsers;
         io.emit("userCount", { userCount: numUsers });
         console.log(`Disconnected: ${numUsers} sockets connected`);
+      });
+
+      socket.on("addCount", () => {
+        ++numUsers;
+        io.emit("userCount", { userCount: numUsers });
+        console.log(`Connected: ${numUsers} sockets connected`);
+      });
+
+      socket.on("fetchCount", () => {
+        io.emit("userCount", { userCount: numUsers });
+        console.log(`Connected: ${numUsers} sockets connected`);
       });
     });
 
