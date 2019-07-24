@@ -5,6 +5,11 @@ const User = require("../../models/User");
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
 
+const {
+  ensureAuthenticated,
+  forwardAuthenticated
+} = require("../../config/auth");
+
 router.post("/register", (req, res, next) => {
   console.log(req.body);
   const { login, password, confirmPassword } = req.body;
@@ -58,8 +63,10 @@ router.post("/register", (req, res, next) => {
   }
 });
 
-router.get("/login", (req, res) => {
-  return res.send("logged in");
+router.get("/login", ensureAuthenticated, (req, res) => {
+  User.find().then(user => {
+    return res.json({ user });
+  });
 });
 
 router.post("/login", passport.authenticate("local"), function(req, res) {

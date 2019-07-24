@@ -1,3 +1,4 @@
+require("dotenv").config();
 const compression = require("compression");
 const express = require("express");
 const app = express();
@@ -16,7 +17,7 @@ const port = process.env.PORT || 3000;
 
 require("../config/passport")(passport);
 
-const db = require("../config/keys").mongoURI;
+const db = process.env.MONGOURI;
 mongoose
   .connect(db, { useNewUrlParser: true })
   .then(() => console.log("MongoDB connected"))

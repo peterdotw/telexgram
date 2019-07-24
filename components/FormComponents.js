@@ -27,6 +27,10 @@ const StyledButton = styled.button`
   padding: 10px 19px;
   font-weight: 600;
   display: block;
+
+  :hover {
+    color: #39ede1;
+  }
 `;
 
 export { StyledForm, StyledInput, StyledButton };
