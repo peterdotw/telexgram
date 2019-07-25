@@ -30,7 +30,7 @@ const LoginForm = () => {
       .catch(err => {
         if (err.response) {
           console.log(err.response.data);
-          alert.show("Bad password!");
+          alert.show("Login or password is wrong");
         }
       });
   };

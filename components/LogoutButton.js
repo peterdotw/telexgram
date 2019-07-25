@@ -22,7 +22,7 @@ const LogoutButton = () => {
       .catch(err => {
         if (err.response) {
           console.log(err.response.data);
-          alert.show("Can't log out!");
+          alert.show(err.response.data);
         }
       });
   };

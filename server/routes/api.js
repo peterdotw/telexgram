@@ -3,81 +3,68 @@ const router = express.Router();
 
 const User = require("../../models/User");
 const bcrypt = require("bcryptjs");
-const passport = require("passport");
+const jwt = require("jsonwebtoken");
+const verify = require("./verifyToken");
 
 const {
-  ensureAuthenticated,
-  forwardAuthenticated
-} = require("../../config/auth");
+  registerValidation,
+  loginValidation
+} = require("../../config/validation");
 
-router.post("/register", (req, res, next) => {
+router.post("/register", (req, res) => {
   console.log(req.body);
-  const { login, password, confirmPassword } = req.body;
+  const { login, password } = req.body;
 
-  let errors = [];
+  const { error } = registerValidation(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
 
-  if (!login || !password || !confirmPassword) {
-    errors.push({ msg: "Fill in all fields!" });
-  }
+  User.findOne({ login: login }).then(user => {
+    if (user) return res.status(400).send("User already exists");
 
-  if (password !== confirmPassword) {
-    errors.push({ msg: "Passwords do not match!" });
-  }
-
-  if (password.length < 6) {
-    errors.push({
-      msg: "Password too short! Must contain minimum 6 characters."
+    const newUser = new User({
+      login,
+      password
     });
-  }
 
-  if (errors.length > 0) {
-    console.log(errors);
-    return res.status(400).json(errors);
-  } else {
-    User.findOne({ login: login }).then(user => {
-      if (user) {
-        errors.push({ msg: "User already exists!" });
-        console.log(errors);
-        return res.status(400).json(errors);
-      } else {
-        const newUser = new User({
-          login,
-          password
-        });
-
-        bcrypt.genSalt(10, (err, salt) => {
-          bcrypt.hash(newUser.password, salt, (err, hash) => {
-            if (err) throw err;
-            newUser.password = hash;
-            newUser
-              .save()
-              .then(user => {
-                console.log(newUser);
-              })
-              .catch(err => console.log(err));
-          });
-        });
-        return res.status(200).json("Registered!");
-      }
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(newUser.password, salt, (err, hash) => {
+        if (err) throw err;
+        newUser.password = hash;
+        newUser
+          .save()
+          .then(user => {
+            console.log(newUser);
+            return res.status(200).send({ user: user._id });
+          })
+          .catch(err => console.log(err));
+      });
     });
-  }
-});
-
-router.get("/login", ensureAuthenticated, (req, res) => {
-  User.find().then(user => {
-    return res.json({ user });
   });
 });
 
-router.post("/login", passport.authenticate("local"), function(req, res) {
-  console.log(req.body);
-  return res.status(200).json("Logged in!");
+router.get("/login", verify, (req, res) => {
+  console.log(req.user._id);
+  User.findOne({ _id: req.user._id }).then(user => {
+    if (!user) return res.status(400).send("User not found");
+    console.log(user);
+    res.send(user.login);
+  });
 });
 
-router.get("/logout", (req, res) => {
-  req.logout();
-  console.log("Logged out");
-  return res.status(200).json("Logged out!");
+router.post("/login", async function(req, res) {
+  const { error } = loginValidation(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
+  const user = await User.findOne({
+    login: req.body.login
+  });
+  if (!user) return res.status(400).send("User not found");
+
+  const validPass = await bcrypt.compare(req.body.password, user.password);
+  if (!validPass) return res.status(400).send("Invalid password");
+
+  const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
+  res.header("auth-token", token).send(token);
 });
 
 module.exports = router;

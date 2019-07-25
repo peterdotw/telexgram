@@ -7,7 +7,6 @@ const io = require("socket.io")(server);
 const mongoose = require("mongoose");
 const helmet = require("helmet");
 const session = require("express-session");
-const passport = require("passport");
 
 const next = require("../config/nextInit").next;
 const nextApp = require("../config/nextInit").nextApp;
@@ -15,9 +14,7 @@ const nextHandler = require("../config/nextInit").nextHandler;
 
 const port = process.env.PORT || 3000;
 
-require("../config/passport")(passport);
-
-const db = process.env.MONGOURI;
+const db = process.env.MONGO_URI;
 mongoose
   .connect(db, { useNewUrlParser: true })
   .then(() => console.log("MongoDB connected"))
@@ -42,8 +39,7 @@ nextApp
         }
       })
     );
-    app.use(passport.initialize());
-    app.use(passport.session());
+
     app.use("/api", require("./routes/api"));
     app.use("/", require("./routes/client"));
     app.use(compression());

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import io from "socket.io-client";
+import axios from "axios";
 import Layout from "../layout/Layout";
 
 import Navigation from "../components/Navigation";
@@ -12,14 +13,27 @@ var socket;
 
 const Dashboard = () => {
   const [count, setCount] = useState(0);
+  const [user, setUser] = useState("");
 
   useEffect(() => {
     socket = io({ transports: ["websocket"] });
     console.log("connected");
     socket.emit("addCount");
-    socket.on("userCount", function(data) {
+    socket.on("userCount", data => {
       setCount(data.userCount);
     });
+
+    axios
+      .get(`/api/login`)
+      .then(res => {
+        console.log(res);
+        setUser(res.data.login);
+      })
+      .catch(err => {
+        if (err.response) {
+          console.log(err.response.data);
+        }
+      });
 
     return function cleanup() {
       socket.close();
@@ -32,7 +46,7 @@ const Dashboard = () => {
         <Layout />
         <>
           <Navigation />
-          <h1>VoHiYo</h1>
+          <h1>Hello, {user}</h1>
           <LogoutButton />
           <Counter count={count} />
         </>

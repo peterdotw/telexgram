@@ -29,7 +29,7 @@ const RegisterForm = () => {
       .catch(err => {
         if (err.response) {
           console.log(err.response.data);
-          alert.show(err.response.data[0].msg);
+          alert.show(err.response.data);
         }
       });
   };
