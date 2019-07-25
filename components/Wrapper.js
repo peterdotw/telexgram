@@ -9,6 +9,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   text-align: center;
+  align-items: center;
   animation: appear 1s ease-in;
 
   @media only screen and (max-width: 768px) {

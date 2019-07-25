@@ -1,8 +1,12 @@
 import { useAlert } from "react-alert";
 import { useRouter } from "next/router";
-import axios from "axios";
+import styled from "styled-components";
 
 import { StyledButton } from "../components/FormComponents";
+
+const BetterButton = styled(StyledButton)`
+  width: 40%;
+`;
 
 const LogoutButton = () => {
   const alert = useAlert();
@@ -10,23 +14,14 @@ const LogoutButton = () => {
 
   const handleClick = e => {
     e.preventDefault();
-    axios
-      .get(`/api/logout`)
-      .then(res => {
-        console.log("Logged out");
-        alert.show("Logged out!", { type: "success" });
-        setTimeout(() => {
-          router.push("/");
-        }, 1000);
-      })
-      .catch(err => {
-        if (err.response) {
-          console.log(err.response.data);
-          alert.show(err.response.data);
-        }
-      });
+    sessionStorage.clear();
+    console.log("Logged out");
+    alert.show("Logged out!", { type: "success" });
+    setTimeout(() => {
+      router.push("/");
+    }, 1000);
   };
-  return <StyledButton onClick={handleClick}>log out</StyledButton>;
+  return <BetterButton onClick={handleClick}>log out</BetterButton>;
 };
 
 export default LogoutButton;

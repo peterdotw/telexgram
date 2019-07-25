@@ -42,15 +42,6 @@ router.post("/register", (req, res) => {
   });
 });
 
-router.get("/login", verify, (req, res) => {
-  console.log(req.user._id);
-  User.findOne({ _id: req.user._id }).then(user => {
-    if (!user) return res.status(400).send("User not found");
-    console.log(user);
-    res.send(user.login);
-  });
-});
-
 router.post("/login", async function(req, res) {
   const { error } = loginValidation(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -63,7 +54,13 @@ router.post("/login", async function(req, res) {
   const validPass = await bcrypt.compare(req.body.password, user.password);
   if (!validPass) return res.status(400).send("Invalid password");
 
-  const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
+  const token = jwt.sign(
+    { _id: user._id, login: user.login },
+    process.env.TOKEN_SECRET,
+    {
+      expiresIn: "1h"
+    }
+  );
   res.header("auth-token", token).send(token);
 });
 

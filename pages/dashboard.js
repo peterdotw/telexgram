@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import io from "socket.io-client";
-import axios from "axios";
 import Layout from "../layout/Layout";
+import jwtDecode from "jwt-decode";
 
 import Navigation from "../components/Navigation";
 import LogoutButton from "../components/LogoutButton";
 import Counter from "../components/Counter";
+import Wrapper from "../components/Wrapper";
+import Header from "../components/Header";
 
 import { AlertTemplate, options, AlertProvider } from "../config/alert";
 
@@ -23,17 +25,9 @@ const Dashboard = () => {
       setCount(data.userCount);
     });
 
-    axios
-      .get(`/api/login`)
-      .then(res => {
-        console.log(res);
-        setUser(res.data.login);
-      })
-      .catch(err => {
-        if (err.response) {
-          console.log(err.response.data);
-        }
-      });
+    const decoded = jwtDecode(sessionStorage.getItem("auth-token"));
+
+    setUser(decoded.login);
 
     return function cleanup() {
       socket.close();
@@ -46,9 +40,11 @@ const Dashboard = () => {
         <Layout />
         <>
           <Navigation />
-          <h1>Hello, {user}</h1>
-          <LogoutButton />
-          <Counter count={count} />
+          <Wrapper>
+            <Header text={`Hello, ${user}`} />
+            <LogoutButton />
+            <Counter count={count} />
+          </Wrapper>
         </>
       </>
     </AlertProvider>

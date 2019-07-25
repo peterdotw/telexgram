@@ -23,6 +23,10 @@ const LoginForm = () => {
       .then(res => {
         alert.show("You're now logged in!", { type: "success" });
         console.log("Działa!");
+
+        const token = res.data;
+        sessionStorage.setItem("auth-token", token);
+
         setTimeout(() => {
           router.push("/dashboard");
         }, 1000);

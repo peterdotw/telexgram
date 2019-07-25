@@ -9,3 +9,4 @@ Best chat app in the universe.
 - [MongoDB](https://www.mongodb.com/) - Database
 - [Mongoose](https://mongoosejs.com/) - MongoDB object modeling
 - [Socket.IO](https://socket.io/) - Used for chat and counter of users online
+- [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) - Used for token generation and verifying

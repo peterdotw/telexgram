@@ -6,7 +6,7 @@ const server = require("http").Server(app);
 const io = require("socket.io")(server);
 const mongoose = require("mongoose");
 const helmet = require("helmet");
-const session = require("express-session");
+const cors = require("cors");
 
 const next = require("../config/nextInit").next;
 const nextApp = require("../config/nextInit").nextApp;
@@ -26,20 +26,9 @@ nextApp
   .prepare()
   .then(() => {
     app.use(helmet());
+    app.use(cors());
     app.use(express.urlencoded({ extended: false }));
     app.use(express.json());
-    app.use(
-      session({
-        secret: "Skitty",
-        resave: false,
-        saveUninitialized: false,
-        cookie: {
-          secure: false,
-          maxAge: 3600000
-        }
-      })
-    );
-
     app.use("/api", require("./routes/api"));
     app.use("/", require("./routes/client"));
     app.use(compression());
