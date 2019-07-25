@@ -4,9 +4,9 @@
   "description": "Best chat app in the universe.",
   "main": "index.js",
   "scripts": {
-    "dev": "node server/server.js",
+    "dev": "nodemon server/server.js",
     "build": "next build",
-    "start": "cross-env NODE_ENV=production node server.js",
+    "start": "cross-env NODE_ENV=production node server/server.js",
     "export": "next export",
     "deploy": "npm run build && npm run export"
   },
