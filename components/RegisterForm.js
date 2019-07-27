@@ -20,8 +20,7 @@ const RegisterForm = () => {
     axios
       .post(`/api/register`, { login, password, confirmPassword })
       .then(res => {
-        alert.show("You're now registered!", { type: "success" });
-        console.log(res);
+        alert.show("You're now registered", { type: "success" });
         setTimeout(() => {
           router.push("/");
         }, 2000);

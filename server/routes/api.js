@@ -1,10 +1,8 @@
 const express = require("express");
 const router = express.Router();
+const passport = require("passport");
 
 const User = require("../../models/User");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const verify = require("./verifyToken");
 
 const {
   registerValidation,
@@ -26,42 +24,33 @@ router.post("/register", (req, res) => {
       password
     });
 
-    bcrypt.genSalt(10, (err, salt) => {
-      bcrypt.hash(newUser.password, salt, (err, hash) => {
-        if (err) throw err;
-        newUser.password = hash;
-        newUser
-          .save()
-          .then(user => {
-            console.log(newUser);
-            return res.status(200).send({ user: user._id });
-          })
-          .catch(err => console.log(err));
-      });
-    });
+    newUser
+      .save()
+      .then(user => {
+        console.log(newUser);
+        return res.status(200).send({ user: user._id });
+      })
+      .catch(err => console.log(err));
   });
 });
 
-router.post("/login", async function(req, res) {
+router.post("/login", function(req, res, next) {
   const { error } = loginValidation(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  const user = await User.findOne({
-    login: req.body.login
-  });
-  if (!user) return res.status(400).send("User not found");
+  passport.authenticate("local", (err, user) => {
+    if (err) return next(err);
+    if (!user) return res.status(400).send("User not found");
+    req.login(user, err => {
+      if (err) return next(err);
+      res.status(200).send(req.user.login);
+    });
+  })(req, res, next);
+});
 
-  const validPass = await bcrypt.compare(req.body.password, user.password);
-  if (!validPass) return res.status(400).send("Invalid password");
-
-  const token = jwt.sign(
-    { _id: user._id, login: user.login },
-    process.env.TOKEN_SECRET,
-    {
-      expiresIn: "1h"
-    }
-  );
-  res.header("auth-token", token).send(token);
+router.get("/logout", (req, res) => {
+  req.logout();
+  res.status(200).send("Logged out");
 });
 
 module.exports = router;

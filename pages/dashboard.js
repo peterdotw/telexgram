@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import io from "socket.io-client";
 import Layout from "../layout/Layout";
-import jwtDecode from "jwt-decode";
 
 import Navigation from "../components/Navigation";
 import LogoutButton from "../components/LogoutButton";
@@ -13,9 +12,9 @@ import { AlertTemplate, options, AlertProvider } from "../config/alert";
 
 var socket;
 
-const Dashboard = () => {
+const Dashboard = ({ user }) => {
   const [count, setCount] = useState(0);
-  const [user, setUser] = useState("");
+  const [name, setName] = useState("");
 
   useEffect(() => {
     socket = io({ transports: ["websocket"] });
@@ -25,9 +24,7 @@ const Dashboard = () => {
       setCount(data.userCount);
     });
 
-    const decoded = jwtDecode(sessionStorage.getItem("auth-token"));
-
-    setUser(decoded.login);
+    setName(user);
 
     return function cleanup() {
       socket.close();
@@ -41,7 +38,7 @@ const Dashboard = () => {
         <>
           <Navigation />
           <Wrapper>
-            <Header text={`Hello, ${user}`} />
+            <Header text={`Hello, ${name}`} />
             <LogoutButton />
             <Counter count={count} />
           </Wrapper>

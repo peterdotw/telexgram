@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAlert } from "react-alert";
-import { useRouter } from "next/router";
+import Router from "next/router";
 import axios from "axios";
 
 import Wrapper from "./Wrapper";
@@ -14,21 +14,16 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
 
   const alert = useAlert();
-  const router = useRouter();
 
   const handleSubmit = e => {
     e.preventDefault();
     axios
       .post(`/api/login`, { login, password })
       .then(res => {
-        alert.show("You're now logged in!", { type: "success" });
-        console.log("Działa!");
-
-        const token = res.data;
-        sessionStorage.setItem("auth-token", token);
+        alert.show("You're now logged in", { type: "success" });
 
         setTimeout(() => {
-          router.push("/dashboard");
+          Router.push("/login/redirect");
         }, 1000);
       })
       .catch(err => {
