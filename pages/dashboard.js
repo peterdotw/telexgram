@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import io from "socket.io-client";
 import Layout from "../layout/Layout";
-
 import Navigation from "../components/Navigation";
 import LogoutButton from "../components/LogoutButton";
 import Counter from "../components/Counter";
 import Wrapper from "../components/Wrapper";
 import Header from "../components/Header";
+import ChatWindow from "../components/ChatWindow";
 
 import { AlertTemplate, options, AlertProvider } from "../config/alert";
 
@@ -38,10 +38,10 @@ const Dashboard = ({ user }) => {
         <>
           <Navigation />
           <Wrapper>
-            <Header text={`Hello, ${name}`} />
+            <ChatWindow name={name} />
             <LogoutButton />
-            <Counter count={count} />
           </Wrapper>
+          <Counter count={count} />
         </>
       </>
     </AlertProvider>

@@ -64,6 +64,8 @@ nextApp
 
     //TODO: properly working counter
     io.on("connection", socket => {
+      console.log("New client connected");
+
       socket.on("disconnect", () => {
         --numUsers;
         io.emit("userCount", { userCount: numUsers });
@@ -79,6 +81,11 @@ nextApp
       socket.on("fetchCount", () => {
         io.emit("userCount", { userCount: numUsers });
         console.log(`Connected: ${numUsers} sockets connected`);
+      });
+
+      socket.on("send message", data => {
+        io.emit("receive message", data);
+        console.log(data);
       });
     });
 

@@ -3,9 +3,13 @@ import styled from "styled-components";
 
 const StyledParagraph = styled.p`
   text-align: center;
-  margin-top: 3em;
+  margin-top: 6em;
   font-size: 10px;
   font-weight: 300;
+
+  @media only screen and (max-width: 768px) {
+    margin-top: 4em;
+  }
 `;
 
 const StyledLink = styled.a`

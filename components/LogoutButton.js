@@ -7,9 +7,14 @@ import { StyledButton } from "../components/FormComponents";
 
 const BetterButton = styled(StyledButton)`
   width: 40%;
+  margin-bottom: 2em;
+
+  @media only screen and (max-width: 768px) {
+    margin: 0;
+  }
 `;
 
-const LogoutButton = () => {
+const LogoutButton = props => {
   const alert = useAlert();
 
   const handleClick = e => {

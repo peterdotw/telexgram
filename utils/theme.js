@@ -1,6 +1,6 @@
 const theme = {
   font: {
-    primary: "'Consolas', sans-serif"
+    primary: "'Fira Code', monospace"
   }
 };
 
