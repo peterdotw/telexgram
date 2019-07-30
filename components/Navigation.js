@@ -1,6 +1,8 @@
 import Link from "next/link";
 import styled from "styled-components";
 
+import { colors } from "../utils/index";
+
 const StyledSpan = styled.span`
   font-size: 21px;
   cursor: pointer;
@@ -37,7 +39,7 @@ const StyledUl = styled.ul`
     cursor: pointer;
 
     :hover {
-      color: #39ede1;
+      color: ${colors.blue};
     }
 
     @media only screen and (max-width: 768px) {

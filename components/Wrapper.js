@@ -1,10 +1,12 @@
 import styled from "styled-components";
 
+import { media, colors, typography } from "../utils/index";
+
 const Wrapper = styled.div`
   width: 460px;
   height: 700px;
   padding: 20px 40px;
-  border: 2px solid black;
+  border: 2px solid ${colors.primary};
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -1,8 +1,7 @@
 import styled from "styled-components";
 
 const StyledParagraph = styled.p`
-  font-size: 14px;
-  font-weight: 300;
+  font-size: 21px;
   margin-top: 40px;
 `;
 

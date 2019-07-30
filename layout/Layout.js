@@ -1,7 +1,7 @@
-import { createGlobalStyle, ThemeProvider } from "styled-components";
+import { createGlobalStyle } from "styled-components";
 import Head from "next/head";
 
-import theme from "../utils/theme";
+import { colors, typography } from "../utils/index";
 
 const GlobalStyle = createGlobalStyle`
 
@@ -14,7 +14,7 @@ const GlobalStyle = createGlobalStyle`
 }
 
 body, button, input {
-  font-family: ${({ theme }) => theme.font.primary};
+  font-family: ${typography.font};
 }
 
 body {
@@ -22,6 +22,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: ${colors.secondary};
+  color: ${colors.primary};
 
   @media only screen and (max-width: 768px) {
     flex-direction: column;
@@ -34,24 +36,23 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  background-color: ${colors.secondary};
 }
 `;
 
 const Layout = props => (
-  <ThemeProvider theme={theme}>
-    <>
-      <Head>
-        <title>telexgram</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" href="https://socket.io/images/favicon.png" />
-        <link
-          href="https://fonts.googleapis.com/css?family=Fira+Code&display=swap"
-          rel="stylesheet"
-        />
-      </Head>
-      <GlobalStyle>{props.children}</GlobalStyle>
-    </>
-  </ThemeProvider>
+  <>
+    <Head>
+      <title>telexgram</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="icon" href="https://socket.io/images/favicon.png" />
+      <link
+        href="https://fonts.googleapis.com/css?family=Fira+Code&display=swap"
+        rel="stylesheet"
+      />
+    </Head>
+    <GlobalStyle>{props.children}</GlobalStyle>
+  </>
 );
 
 export default Layout;

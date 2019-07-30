@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const StyledHeader = styled.h1`
-  font-size: 28px;
+  font-size: 40px;
   margin: 0;
 `;
 
