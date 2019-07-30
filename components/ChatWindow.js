@@ -3,6 +3,8 @@ import { StyledForm, StyledInput, StyledButton } from "./FormComponents";
 import { useState, useEffect } from "react";
 import io from "socket.io-client";
 
+import { colors } from "../utils/index";
+
 const StyledDiv = styled.div`
   width: 320px;
   height: 500px;
@@ -45,7 +47,8 @@ const StyledMessages = styled.div`
   }
 
   p:nth-child(odd) {
-    background: #eee;
+    background: ${colors.primary};
+    color: ${colors.secondary};
   }
 
   ::-webkit-scrollbar-y {
@@ -57,15 +60,11 @@ const StyledMessages = styled.div`
   }
 
   ::-webkit-scrollbar-track {
-    background: white;
+    background: ${colors.primary};
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #16e9db;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: #39ede1;
+    background: ${colors.blue};
   }
 `;
 
