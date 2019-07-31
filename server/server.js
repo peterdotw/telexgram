@@ -25,6 +25,7 @@ mongoose
 let numUsers = 0;
 
 const User = require("../models/User");
+const Messages = require("../models/Messages");
 
 const { myStrategy } = require("../config/authStrategy");
 
@@ -86,6 +87,11 @@ nextApp
       socket.on("send message", data => {
         io.emit("receive message", data);
         console.log(data);
+        let chatMessage = new Messages({
+          message: data.message,
+          sender: data.author
+        });
+        chatMessage.save();
       });
     });
 
