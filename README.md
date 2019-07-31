@@ -13,4 +13,4 @@ Best chat app in the universe.
 
 ## Note about deployed app
 
-Heroku always puts the server to sleep after 30 minutes of last activity so it can load 1-2 minutes at the first time you visit my app on.
+Heroku always puts the server to sleep after 30 minutes of last activity so it can load 1-2 minutes at the first time You visit my app on.
