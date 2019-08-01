@@ -89,7 +89,7 @@ nextApp
         console.log(data);
         let chatMessage = new Messages({
           message: data.message,
-          sender: data.author
+          author: data.author
         });
         chatMessage.save();
       });

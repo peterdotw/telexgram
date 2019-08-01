@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import io from "socket.io-client";
+import axios from "axios";
 
 import { StyledForm, StyledInput, StyledButton } from "./FormComponents";
 import { StyledDiv, StyledMessages } from "./ChatComponents";
@@ -15,6 +16,17 @@ const ChatWindow = props => {
 
     socket.on("receive message", function(data) {
       addMessage(data);
+    });
+
+    axios.get("/api/chats").then(res => {
+      res.data.map(mes => {
+        setMessages(prevState => {
+          return [
+            ...prevState,
+            { message: mes.message, author: mes.author, key: mes._id }
+          ];
+        });
+      });
     });
 
     return function cleanup() {
@@ -45,7 +57,7 @@ const ChatWindow = props => {
 
   const allMessages = messages.map(message => {
     return (
-      <p>
+      <p key={message.key}>
         {message.author}: {message.message}
       </p>
     );
