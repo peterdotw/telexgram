@@ -10,6 +10,7 @@ Best chat app in the universe.
 - [Mongoose](https://mongoosejs.com/) - MongoDB object modeling
 - [Socket.IO](https://socket.io/) - Used for chat and counter of users online
 - [Passport.js](http://www.passportjs.org/) - Used for authentication
+- [Styled Components](https://www.styled-components.com/) - Used for styling
 
 ## Note about deployed app
 
