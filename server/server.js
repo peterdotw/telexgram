@@ -22,8 +22,6 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.log(err));
 
-let numUsers = 0;
-
 const User = require("../models/User");
 const Messages = require("../models/Messages");
 
@@ -63,25 +61,16 @@ nextApp
     app.use("/", require("./routes/client"));
     app.use(compression());
 
-    //TODO: properly working counter
+    //TODO: disconnect after logging in
     io.on("connection", socket => {
-      console.log("New client connected");
+      io.emit("userCount", { userCount: io.engine.clientsCount });
+      console.log(`Connected: ${io.engine.clientsCount} sockets connected`);
 
       socket.on("disconnect", () => {
-        --numUsers;
-        io.emit("userCount", { userCount: numUsers });
-        console.log(`Disconnected: ${numUsers} sockets connected`);
-      });
-
-      socket.on("addCount", () => {
-        ++numUsers;
-        io.emit("userCount", { userCount: numUsers });
-        console.log(`Connected: ${numUsers} sockets connected`);
-      });
-
-      socket.on("fetchCount", () => {
-        io.emit("userCount", { userCount: numUsers });
-        console.log(`Connected: ${numUsers} sockets connected`);
+        io.emit("userCount", { userCount: io.engine.clientsCount });
+        console.log(
+          `Disconnected: ${io.engine.clientsCount} sockets connected`
+        );
       });
 
       socket.on("send message", data => {

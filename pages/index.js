@@ -16,10 +16,17 @@ const Home = () => {
   useEffect(() => {
     socket = io({ transports: ["websocket"] });
     console.log("connected");
-    socket.emit("fetchCount");
-    socket.on("userCount", function(data) {
+    socket.on("userCount", data => {
       setCount(data.userCount);
+      console.log(data.userCount);
     });
+    socket.on("disconnect", () => {
+      io.emit("disconnect");
+    });
+
+    return function cleanup() {
+      socket.close();
+    };
   }, []);
 
   return (

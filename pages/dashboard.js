@@ -5,7 +5,6 @@ import Navigation from "../components/Navigation";
 import LogoutButton from "../components/LogoutButton";
 import Counter from "../components/Counter";
 import Wrapper from "../components/Wrapper";
-import Header from "../components/Header";
 import ChatWindow from "../components/ChatWindow";
 
 import { AlertTemplate, options, AlertProvider } from "../config/alert";
@@ -19,9 +18,8 @@ const Dashboard = ({ user }) => {
   useEffect(() => {
     socket = io({ transports: ["websocket"] });
     console.log("connected");
-    socket.emit("addCount");
     socket.on("userCount", data => {
-      setCount(data.userCount);
+      setCount(data.userCount - 1);
     });
 
     setName(user);
