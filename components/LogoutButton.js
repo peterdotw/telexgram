@@ -3,7 +3,7 @@ import Router from "next/router";
 import styled from "styled-components";
 import axios from "axios";
 
-import { StyledButton } from "../components/FormComponents";
+import { StyledButton } from "./styled_components/FormComponents";
 
 const BetterButton = styled(StyledButton)`
   width: 40%;

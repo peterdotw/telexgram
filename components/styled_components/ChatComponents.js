@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { colors } from "../utils/index";
+import { colors } from "../../utils/index";
 
 const StyledDiv = styled.div`
   width: 320px;

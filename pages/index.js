@@ -8,7 +8,7 @@ import Counter from "../components/Counter";
 
 import { AlertTemplate, options, AlertProvider } from "../config/alert";
 
-var socket;
+let socket;
 
 const Home = () => {
   const [count, setCount] = useState(0);

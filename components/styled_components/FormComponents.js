@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { colors } from "../utils/index";
+import { colors } from "../../utils/index";
 
 const StyledForm = styled.form`
   margin-top: 45px;

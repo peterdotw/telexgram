@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import io from "socket.io-client";
 import axios from "axios";
 
-import { StyledForm, StyledInput, StyledButton } from "./FormComponents";
-import { StyledDiv, StyledMessages } from "./ChatComponents";
+import { StyledForm, StyledInput, StyledButton } from "./styled_components/FormComponents";
+import { StyledDiv, StyledMessages } from "./styled_components/ChatComponents";
 
-var socket;
+let socket;
 
 const ChatWindow = props => {
   const [message, setMessage] = useState("");

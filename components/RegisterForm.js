@@ -5,7 +5,7 @@ import axios from "axios";
 
 import Wrapper from "../components/Wrapper";
 import Header from "../components/Header";
-import { StyledForm, StyledInput, StyledButton } from "./FormComponents";
+import { StyledForm, StyledInput, StyledButton } from "./styled_components/FormComponents";
 
 const RegisterForm = () => {
   const [login, setLogin] = useState("");

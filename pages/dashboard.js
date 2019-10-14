@@ -10,7 +10,7 @@ import ChatWindow from "../components/ChatWindow";
 
 import { AlertTemplate, options, AlertProvider } from "../config/alert";
 
-var socket;
+let socket;
 
 const Dashboard = ({ user }) => {
   const [count, setCount] = useState(0);

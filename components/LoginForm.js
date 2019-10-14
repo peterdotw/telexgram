@@ -7,7 +7,7 @@ import Wrapper from "./Wrapper";
 import Header from "./Header";
 import Text from "./Text";
 import BottomText from "./BottomText";
-import { StyledForm, StyledInput, StyledButton } from "./FormComponents";
+import { StyledForm, StyledInput, StyledButton } from "./styled_components/FormComponents";
 
 const LoginForm = () => {
   const [login, setLogin] = useState("");
