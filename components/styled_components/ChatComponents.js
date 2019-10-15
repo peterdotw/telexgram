@@ -4,7 +4,7 @@ import { colors } from "../../utils/index";
 
 const StyledDiv = styled.div`
   width: 320px;
-  height: 500px;
+  height: 450px;
 
   form {
     height: 200px;

@@ -61,10 +61,13 @@ nextApp
     app.use("/", require("./routes/client"));
     app.use(compression());
 
-    //TODO: disconnect after logging in
     io.on("connection", socket => {
       io.emit("userCount", { userCount: io.engine.clientsCount });
       console.log(`Connected: ${io.engine.clientsCount} sockets connected`);
+
+      socket.on("userCount", () => {
+        io.emit("userCount", { userCount: io.engine.clientsCount });
+      });
 
       socket.on("disconnect", () => {
         io.emit("userCount", { userCount: io.engine.clientsCount });

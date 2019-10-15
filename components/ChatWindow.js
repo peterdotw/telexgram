@@ -1,19 +1,15 @@
 import { useState, useEffect } from "react";
-import io from "socket.io-client";
+import { socket } from "../config/socket";
 import axios from "axios";
 
 import { StyledForm, StyledInput, StyledButton } from "./styled_components/FormComponents";
 import { StyledDiv, StyledMessages } from "./styled_components/ChatComponents";
-
-let socket;
 
 const ChatWindow = props => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    socket = io({ transports: ["websocket"] });
-
     socket.on("receive message", function(data) {
       addMessage(data);
     });

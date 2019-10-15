@@ -21,7 +21,7 @@ const StyledInput = styled.input`
 `;
 
 const StyledButton = styled.button`
-  margin-top: 50px;
+  margin-top: 40px;
   background-color: ${colors.secondary};
   color: ${colors.primary};
   border: none;

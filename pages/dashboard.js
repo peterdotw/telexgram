@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import io from "socket.io-client";
+import { socket } from "../config/socket";
 import Layout from "../layout/Layout";
 import Navigation from "../components/Navigation";
 import LogoutButton from "../components/LogoutButton";
@@ -9,24 +9,17 @@ import ChatWindow from "../components/ChatWindow";
 
 import { AlertTemplate, options, AlertProvider } from "../config/alert";
 
-let socket;
-
 const Dashboard = ({ user }) => {
   const [count, setCount] = useState(0);
   const [name, setName] = useState("");
 
   useEffect(() => {
-    socket = io({ transports: ["websocket"] });
-    console.log("connected");
+    socket.emit("userCount", {});
     socket.on("userCount", data => {
-      setCount(data.userCount - 1);
+      setCount(data.userCount);
     });
 
     setName(user);
-
-    return function cleanup() {
-      socket.close();
-    };
   }, []);
 
   return (
@@ -37,6 +30,7 @@ const Dashboard = ({ user }) => {
           <Navigation />
           <Wrapper>
             <ChatWindow name={name} />
+            <p>Hello, {name}</p>
             <LogoutButton />
           </Wrapper>
           <Counter count={count} />
