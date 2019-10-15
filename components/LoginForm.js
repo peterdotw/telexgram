@@ -18,7 +18,7 @@ const LoginForm = () => {
   const handleSubmit = e => {
     e.preventDefault();
     axios
-      .post(`/api/login`, { login, password })
+      .post("/api/login", { login, password })
       .then(res => {
         alert.show("You're now logged in", { type: "success" });
 

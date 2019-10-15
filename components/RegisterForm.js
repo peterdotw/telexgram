@@ -18,7 +18,7 @@ const RegisterForm = () => {
   const handleSubmit = e => {
     e.preventDefault();
     axios
-      .post(`/api/register`, { login, password, confirmPassword })
+      .post("/api/register", { login, password, confirmPassword })
       .then(res => {
         alert.show("You're now registered", { type: "success" });
         setTimeout(() => {

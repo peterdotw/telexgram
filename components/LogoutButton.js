@@ -19,7 +19,7 @@ const LogoutButton = props => {
 
   const handleClick = e => {
     e.preventDefault();
-    axios.get(`/api/logout`).then(res => {
+    axios.get("/api/logout").then(res => {
       console.log("Logged out");
       alert.show("Logged out", { type: "success" });
       setTimeout(() => {
