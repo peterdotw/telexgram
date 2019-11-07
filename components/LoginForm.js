@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAlert } from "react-alert";
 import Router from "next/router";
-import axios from "axios";
+import { handleLogin } from "../config/databaseApi";
 
 import Wrapper from "./Wrapper";
 import Header from "./Header";
@@ -15,23 +15,21 @@ const LoginForm = () => {
 
   const alert = useAlert();
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    axios
-      .post("/api/login", { login, password })
-      .then(res => {
-        alert.show("You're now logged in", { type: "success" });
+  const handleSubmit = async event => {
+    try {
+      event.preventDefault();
+      await handleLogin(login, password);
+      alert.show("You're now logged in", { type: "success" });
 
-        setTimeout(() => {
-          Router.push("/login/redirect");
-        }, 1000);
-      })
-      .catch(err => {
-        if (err.response) {
-          console.log(err.response.data);
-          alert.show("Login or password is wrong");
-        }
-      });
+      setTimeout(() => {
+        Router.push("/login/redirect");
+      }, 1000);
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data);
+        alert.show("Login or password is wrong");
+      }
+    }
   };
 
   const handleLoginChange = event => {

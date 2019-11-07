@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { socket } from "../config/socket";
-import axios from "axios";
+import { getChats } from "../config/databaseApi";
 
 import { StyledForm, StyledInput, StyledButton } from "./styled_components/FormComponents";
 import { StyledDiv, StyledMessages } from "./styled_components/ChatComponents";
@@ -10,19 +10,25 @@ const ChatWindow = props => {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
+    const fetchChats = async () => {
+      try {
+        const response = await getChats();
+        response.map(mes => {
+          setMessages(prevState => {
+            return [
+              ...prevState,
+              { message: mes.message, author: mes.author, key: mes._id }
+            ];
+          });
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchChats();
+
     socket.on("receive message", function(data) {
       addMessage(data);
-    });
-
-    axios.get("/api/chats").then(res => {
-      res.data.map(mes => {
-        setMessages(prevState => {
-          return [
-            ...prevState,
-            { message: mes.message, author: mes.author, key: mes._id }
-          ];
-        });
-      });
     });
 
     return function cleanup() {

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAlert } from "react-alert";
 import { useRouter } from "next/router";
-import axios from "axios";
+import { handleRegister } from "../config/databaseApi";
 
 import Wrapper from "../components/Wrapper";
 import Header from "../components/Header";
@@ -15,22 +15,20 @@ const RegisterForm = () => {
   const alert = useAlert();
   const router = useRouter();
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    axios
-      .post("/api/register", { login, password, confirmPassword })
-      .then(res => {
-        alert.show("You're now registered", { type: "success" });
-        setTimeout(() => {
-          router.push("/");
-        }, 2000);
-      })
-      .catch(err => {
-        if (err.response) {
-          console.log(err.response.data);
-          alert.show(err.response.data);
-        }
-      });
+  const handleSubmit = async event => {
+    try {
+      event.preventDefault();
+      await handleRegister(login, password, confirmPassword);
+      alert.show("You're now registered", { type: "success" });
+      setTimeout(() => {
+        router.push("/");
+      }, 2000);
+    } catch (error) { // TODO: error handling
+      if (error.response) {
+        console.log(error.response.data);
+        alert.show(error.response.data);
+      }
+    }
   };
 
   const handleLoginChange = event => {
