@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 
 const User = require("../models/User");
 
-const myStrategy = new LocalStrategy(
+const authStrategy = new LocalStrategy(
   { usernameField: "login" },
   (login, password, done) => {
     User.findOne({
@@ -29,4 +29,4 @@ const myStrategy = new LocalStrategy(
   }
 );
 
-module.exports.myStrategy = myStrategy;
+module.exports.authStrategy = authStrategy;

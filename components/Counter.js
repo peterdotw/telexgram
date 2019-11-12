@@ -7,11 +7,6 @@ const StyledCounter = styled.p`
   animation: appear both 1s 1s ease-in;
   opacity: 0;
 
-  @media only screen and (max-width: 768px) {
-    margin-top: 0.8em;
-    margin-bottom: 0.8em;
-  }
-
   @keyframes appear {
     from {
       opacity: 0;
@@ -19,6 +14,11 @@ const StyledCounter = styled.p`
     to {
       opacity: 1;
     }
+  }
+
+  @media only screen and (max-width: 768px) {
+    margin-top: 0.8em;
+    margin-bottom: 0.8em;
   }
 `;
 

@@ -25,7 +25,7 @@ mongoose
 const User = require("../models/User");
 const Messages = require("../models/Messages");
 
-const { myStrategy } = require("../config/authStrategy");
+const { authStrategy } = require("../config/authStrategy");
 
 nextApp
   .prepare()
@@ -44,7 +44,7 @@ nextApp
       })
     );
 
-    passport.use(myStrategy);
+    passport.use(authStrategy);
     passport.serializeUser((user, done) => {
       done(null, user.id);
     });

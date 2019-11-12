@@ -4,7 +4,6 @@ import Head from "next/head";
 import { colors, typography } from "../utils/index";
 
 const GlobalStyle = createGlobalStyle`
-
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;

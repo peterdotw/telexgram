@@ -23,7 +23,7 @@ const RegisterForm = () => {
       setTimeout(() => {
         router.push("/");
       }, 2000);
-    } catch (error) { // TODO: error handling
+    } catch (error) {
       if (error.response) {
         console.log(error.response.data);
         alert.show(error.response.data);
