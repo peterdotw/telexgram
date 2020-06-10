@@ -6,26 +6,25 @@ const io = require("socket.io")(server);
 const mongoose = require("mongoose");
 const helmet = require("helmet");
 const cors = require("cors");
-const session = require("express-session");
 const passport = require("passport");
 const compression = require("compression");
 const uid = require("uid-safe");
+const session = require("express-session");
+const MongoStore = require("connect-mongo")(session);
 
 const nextApp = require("../config/nextInit").nextApp;
 const nextHandler = require("../config/nextInit").nextHandler;
-
-const port = process.env.PORT || 3000;
-
-const db = process.env.MONGO_URI;
-mongoose
-  .connect(db, { useNewUrlParser: true })
-  .then(() => console.log("MongoDB connected"))
-  .catch(err => console.log(err));
-
 const User = require("../models/User");
 const Messages = require("../models/Messages");
-
 const { authStrategy } = require("../config/authStrategy");
+
+const port = process.env.PORT || 3000;
+const db = process.env.MONGO_URI;
+
+mongoose
+  .connect(db, { useUnifiedTopology: true, useNewUrlParser: true })
+  .then(() => console.log("> MongoDB connected"))
+  .catch((err) => console.log(`DB Connection Error: ${err.message}`));
 
 nextApp
   .prepare()
@@ -35,12 +34,13 @@ nextApp
     app.use(express.json());
     app.use(
       session({
+        store: new MongoStore({ mongooseConnection: mongoose.connection }),
         secret: uid.sync(18),
         cookie: {
-          maxAge: 3600000
+          maxAge: 3600000,
         },
         resave: false,
-        saveUninitialized: true
+        saveUninitialized: true,
       })
     );
 
@@ -49,7 +49,7 @@ nextApp
       done(null, user.id);
     });
     passport.deserializeUser((id, done) =>
-      User.findById(id, function(err, user) {
+      User.findById(id, function (err, user) {
         done(err, user.login);
       })
     );
@@ -61,7 +61,7 @@ nextApp
     app.use("/", require("./routes/client"));
     app.use(compression());
 
-    io.on("connection", socket => {
+    io.on("connection", (socket) => {
       io.emit("userCount", { userCount: io.engine.clientsCount });
       console.log(`Connected: ${io.engine.clientsCount} sockets connected`);
 
@@ -76,12 +76,12 @@ nextApp
         );
       });
 
-      socket.on("send message", data => {
+      socket.on("send message", (data) => {
         io.emit("receive message", data);
         console.log(data);
         let chatMessage = new Messages({
           message: data.message,
-          author: data.author
+          author: data.author,
         });
         chatMessage.save();
       });
@@ -91,12 +91,12 @@ nextApp
       return nextHandler(req, res);
     });
 
-    server.listen(port, err => {
+    server.listen(port, (err) => {
       if (err) throw err;
       console.log(`> Ready on port ${port}`);
     });
   })
-  .catch(ex => {
+  .catch((ex) => {
     console.error(ex.stack);
     process.exit(1);
   });
