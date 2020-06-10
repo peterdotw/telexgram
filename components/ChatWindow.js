@@ -2,10 +2,14 @@ import { useState, useEffect } from "react";
 import { socket } from "../config/socket";
 import { getChats } from "../config/databaseApi";
 
-import { StyledForm, StyledInput, StyledButton } from "./styled_components/FormComponents";
+import {
+  StyledForm,
+  StyledInput,
+  StyledButton,
+} from "./styled_components/FormComponents";
 import { StyledDiv, StyledMessages } from "./styled_components/ChatComponents";
 
-const ChatWindow = props => {
+const ChatWindow = (props) => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
 
@@ -13,21 +17,21 @@ const ChatWindow = props => {
     const fetchChats = async () => {
       try {
         const response = await getChats();
-        response.map(mes => {
-          setMessages(prevState => {
+        response.map((mes) => {
+          setMessages((prevState) => {
             return [
               ...prevState,
-              { message: mes.message, author: mes.author, key: mes._id }
+              { message: mes.message, author: mes.author, key: mes._id },
             ];
           });
         });
       } catch (error) {
         console.log(error);
       }
-    }
+    };
     fetchChats();
 
-    socket.on("receive message", function(data) {
+    socket.on("receive message", function (data) {
       addMessage(data);
     });
 
@@ -36,28 +40,28 @@ const ChatWindow = props => {
     };
   }, []);
 
-  const sendMessage = e => {
+  const sendMessage = (e) => {
     e.preventDefault();
 
     socket.emit("send message", {
       message,
-      author: props.name
+      author: props.name,
     });
 
     setMessage("");
   };
 
-  const addMessage = data => {
-    setMessages(prevState => {
+  const addMessage = (data) => {
+    setMessages((prevState) => {
       return [...prevState, data];
     });
   };
 
-  const handleMessage = e => {
+  const handleMessage = (e) => {
     setMessage(e.target.value);
   };
 
-  const allMessages = messages.map(message => {
+  const allMessages = messages.map((message) => {
     return (
       <p key={message.key}>
         {message.author}: {message.message}

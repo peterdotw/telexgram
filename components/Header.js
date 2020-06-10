@@ -5,7 +5,7 @@ const StyledHeader = styled.h1`
   margin: 0;
 `;
 
-const Header = props => {
+const Header = (props) => {
   return <StyledHeader>{props.text}</StyledHeader>;
 };
 

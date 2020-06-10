@@ -5,7 +5,11 @@ import { handleRegister } from "../config/databaseApi";
 
 import Wrapper from "../components/Wrapper";
 import Header from "../components/Header";
-import { StyledForm, StyledInput, StyledButton } from "./styled_components/FormComponents";
+import {
+  StyledForm,
+  StyledInput,
+  StyledButton,
+} from "./styled_components/FormComponents";
 
 const RegisterForm = () => {
   const [login, setLogin] = useState("");
@@ -15,7 +19,7 @@ const RegisterForm = () => {
   const alert = useAlert();
   const router = useRouter();
 
-  const handleSubmit = async event => {
+  const handleSubmit = async (event) => {
     try {
       event.preventDefault();
       await handleRegister(login, password, confirmPassword);
@@ -31,15 +35,15 @@ const RegisterForm = () => {
     }
   };
 
-  const handleLoginChange = event => {
+  const handleLoginChange = (event) => {
     setLogin(event.target.value);
   };
 
-  const handlePasswordChange = event => {
+  const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
 
-  const handleConfirmPasswordChange = event => {
+  const handleConfirmPasswordChange = (event) => {
     setConfirmPassword(event.target.value);
   };
 

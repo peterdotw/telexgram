@@ -22,7 +22,7 @@ const StyledCounter = styled.p`
   }
 `;
 
-const Counter = props => {
+const Counter = (props) => {
   return <StyledCounter>Online: {props.count}</StyledCounter>;
 };
 

@@ -1,3 +1,3 @@
 export default {
-  font: "'Fira Code', monospace"
+  font: "'Fira Code', monospace",
 };
