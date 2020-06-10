@@ -7,7 +7,7 @@ const Messages = require("../../models/Messages");
 
 const {
   registerValidation,
-  loginValidation
+  loginValidation,
 } = require("../../config/validation");
 
 function ensureAuthenticated(req, res, next) {
@@ -22,32 +22,32 @@ router.post("/register", (req, res) => {
   const { error } = registerValidation(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  User.findOne({ login: login }).then(user => {
+  User.findOne({ login: login }).then((user) => {
     if (user) return res.status(400).send("User already exists");
 
     const newUser = new User({
       login,
-      password
+      password,
     });
 
     newUser
       .save()
-      .then(user => {
+      .then((user) => {
         console.log(newUser);
         return res.status(200).send({ user: user._id });
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   });
 });
 
-router.post("/login", function(req, res, next) {
+router.post("/login", function (req, res, next) {
   const { error } = loginValidation(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
   passport.authenticate("local", (err, user) => {
     if (err) return next(err);
     if (!user) return res.status(400).send("User not found");
-    req.login(user, err => {
+    req.login(user, (err) => {
       if (err) return next(err);
       res.status(200).send(req.user.login);
     });
@@ -62,7 +62,7 @@ router.get("/logout", (req, res) => {
 router.get("/chats", ensureAuthenticated, (req, res) => {
   res.setHeader("Content-Type", "application/json");
   res.statusCode = 200;
-  Messages.find({}).then(chat => {
+  Messages.find({}).then((chat) => {
     res.json(chat);
   });
 });

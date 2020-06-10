@@ -3,14 +3,14 @@ const mongoose = require("mongoose");
 const MessagesSchema = new mongoose.Schema(
   {
     message: {
-      type: String
+      type: String,
     },
     author: {
-      type: String
-    }
+      type: String,
+    },
   },
   {
-    timestamps: true
+    timestamps: true,
   }
 );
 

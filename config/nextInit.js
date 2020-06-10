@@ -6,5 +6,5 @@ const nextHandler = nextApp.getRequestHandler();
 module.exports = {
   next,
   nextApp,
-  nextHandler
+  nextHandler,
 };

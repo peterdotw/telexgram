@@ -2,7 +2,11 @@ import axios from "axios";
 
 export const handleRegister = async (login, password, confirmPassword) => {
   try {
-    const response = await axios.post("/api/register", { login, password, confirmPassword });
+    const response = await axios.post("/api/register", {
+      login,
+      password,
+      confirmPassword,
+    });
     const data = await response.data;
 
     return data;

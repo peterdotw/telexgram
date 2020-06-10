@@ -15,7 +15,7 @@ const Dashboard = ({ user }) => {
 
   useEffect(() => {
     socket.emit("userCount", {});
-    socket.on("userCount", data => {
+    socket.on("userCount", (data) => {
       setCount(data.userCount);
     });
 

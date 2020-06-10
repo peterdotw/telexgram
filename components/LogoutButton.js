@@ -17,7 +17,7 @@ const BetterButton = styled(StyledButton)`
 const LogoutButton = () => {
   const alert = useAlert();
 
-  const handleClick = async event => {
+  const handleClick = async (event) => {
     try {
       event.preventDefault();
       await handleLogout();

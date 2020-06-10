@@ -7,7 +7,11 @@ import Wrapper from "./Wrapper";
 import Header from "./Header";
 import Text from "./Text";
 import BottomText from "./BottomText";
-import { StyledForm, StyledInput, StyledButton } from "./styled_components/FormComponents";
+import {
+  StyledForm,
+  StyledInput,
+  StyledButton,
+} from "./styled_components/FormComponents";
 
 const LoginForm = () => {
   const [login, setLogin] = useState("");
@@ -15,7 +19,7 @@ const LoginForm = () => {
 
   const alert = useAlert();
 
-  const handleSubmit = async event => {
+  const handleSubmit = async (event) => {
     try {
       event.preventDefault();
       await handleLogin(login, password);
@@ -32,11 +36,11 @@ const LoginForm = () => {
     }
   };
 
-  const handleLoginChange = event => {
+  const handleLoginChange = (event) => {
     setLogin(event.target.value);
   };
 
-  const handlePasswordChange = event => {
+  const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
 

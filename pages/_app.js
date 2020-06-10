@@ -16,7 +16,7 @@ class MyApp extends App {
   constructor(props) {
     super(props);
     this.state = {
-      user: props.pageProps.user
+      user: props.pageProps.user,
     };
   }
 
@@ -25,7 +25,7 @@ class MyApp extends App {
 
     const props = {
       ...pageProps,
-      user: this.state.user
+      user: this.state.user,
     };
 
     return (

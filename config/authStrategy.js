@@ -7,12 +7,12 @@ const authStrategy = new LocalStrategy(
   { usernameField: "login" },
   (login, password, done) => {
     User.findOne({
-      login: login
-    }).then(user => {
+      login: login,
+    }).then((user) => {
       if (!user) {
         console.log("Incorrect username");
         return done(null, false, {
-          message: "Incorrect username"
+          message: "Incorrect username",
         });
       }
 

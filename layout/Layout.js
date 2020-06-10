@@ -39,7 +39,7 @@ body {
 }
 `;
 
-const Layout = props => (
+const Layout = (props) => (
   <>
     <Head>
       <title>telexgram</title>
