@@ -20,10 +20,10 @@ router.post("/register", (req, res) => {
   const { login, password } = req.body;
 
   const { error } = registerValidation(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) return res.send(error.details[0].message);
 
   User.findOne({ login: login }).then((user) => {
-    if (user) return res.status(400).send("User already exists");
+    if (user) return res.send("User already exists");
 
     const newUser = new User({
       login,
@@ -32,9 +32,8 @@ router.post("/register", (req, res) => {
 
     newUser
       .save()
-      .then((user) => {
-        console.log(newUser);
-        return res.status(200).send({ user: user._id });
+      .then(() => {
+        return res.send("OK");
       })
       .catch((err) => console.log(err));
   });
@@ -42,14 +41,14 @@ router.post("/register", (req, res) => {
 
 router.post("/login", function (req, res, next) {
   const { error } = loginValidation(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) return res.send(error.details[0].message);
 
   passport.authenticate("local", (err, user) => {
     if (err) return next(err);
-    if (!user) return res.status(400).send("User not found");
+    if (!user) return res.send("User not found");
     req.login(user, (err) => {
       if (err) return next(err);
-      res.status(200).send(req.user.login);
+      res.send("OK");
     });
   })(req, res, next);
 });
