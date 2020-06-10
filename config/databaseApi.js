@@ -1,8 +1,10 @@
 import axios from "axios";
 
+const appUri = process.env.APP_URI;
+
 export const handleRegister = async (login, password, confirmPassword) => {
   try {
-    const response = await axios.post("/api/register", {
+    const response = await axios.post(`${appUri}/api/register`, {
       login,
       password,
       confirmPassword,
@@ -17,7 +19,11 @@ export const handleRegister = async (login, password, confirmPassword) => {
 
 export const handleLogin = async (login, password) => {
   try {
-    const response = await axios.post("/api/login", { login, password });
+    const response = await axios.post(`${appUri}/api/login`, {
+      login,
+      password,
+    });
+
     const data = await response.data;
 
     return data;
@@ -28,7 +34,7 @@ export const handleLogin = async (login, password) => {
 
 export const handleLogout = async () => {
   try {
-    const response = await axios.get("/api/logout");
+    const response = await axios.get(`${appUri}/api/logout`);
     const data = await response.data;
 
     return data;
@@ -39,7 +45,7 @@ export const handleLogout = async () => {
 
 export const getChats = async () => {
   try {
-    const response = await axios.get("/api/chats");
+    const response = await axios.get(`${appUri}/api/chats`);
     const data = await response.data;
 
     return data;

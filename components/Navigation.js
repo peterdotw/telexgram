@@ -59,12 +59,6 @@ const Navigation = () => {
         <Link href={"/about"}>
           <li>about</li>
         </Link>
-        <Link href={"/merch"}>
-          <li>merch</li>
-        </Link>
-        <Link href={"/contact"}>
-          <li>contact</li>
-        </Link>
       </StyledUl>
     </StyledNav>
   );

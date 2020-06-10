@@ -20,19 +20,18 @@ const RegisterForm = () => {
   const router = useRouter();
 
   const handleSubmit = async (event) => {
-    try {
-      event.preventDefault();
-      await handleRegister(login, password, confirmPassword);
-      alert.show("You're now registered", { type: "success" });
-      setTimeout(() => {
-        router.push("/");
-      }, 2000);
-    } catch (error) {
-      if (error.response) {
-        console.log(error.response.data);
-        alert.show(error.response.data);
-      }
+    event.preventDefault();
+    const response = await handleRegister(login, password, confirmPassword);
+    if (response !== "OK") {
+      alert.show(response);
+      return;
     }
+
+    alert.show("You're now registered", { type: "success" });
+
+    setTimeout(() => {
+      router.push("/");
+    }, 2000);
   };
 
   const handleLoginChange = (event) => {

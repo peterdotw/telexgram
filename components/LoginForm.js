@@ -20,20 +20,18 @@ const LoginForm = () => {
   const alert = useAlert();
 
   const handleSubmit = async (event) => {
-    try {
-      event.preventDefault();
-      await handleLogin(login, password);
-      alert.show("You're now logged in", { type: "success" });
-
-      setTimeout(() => {
-        Router.push("/login/redirect");
-      }, 1000);
-    } catch (error) {
-      if (error.response) {
-        console.log(error.response.data);
-        alert.show("Login or password is wrong");
-      }
+    event.preventDefault();
+    const response = await handleLogin(login, password);
+    if (response !== "OK") {
+      alert.show(response);
+      return;
     }
+
+    alert.show("You're now logged in", { type: "success" });
+
+    setTimeout(() => {
+      Router.push("/login/redirect");
+    }, 1000);
   };
 
   const handleLoginChange = (event) => {
