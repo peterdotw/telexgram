@@ -9,7 +9,7 @@ import {
   StyledForm,
   StyledInput,
   StyledButton,
-} from "./styled_components/FormComponents";
+} from "../components/styled_components/FormComponents";
 
 const RegisterForm = () => {
   const [login, setLogin] = useState("");

@@ -3,7 +3,7 @@ import Router from "next/router";
 import styled from "styled-components";
 import { handleLogout } from "../config/databaseApi";
 
-import { StyledButton } from "./styled_components/FormComponents";
+import { StyledButton } from "../components/styled_components/FormComponents";
 
 const BetterButton = styled(StyledButton)`
   width: 40%;

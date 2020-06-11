@@ -1,6 +1,6 @@
 import Layout from "../layout/Layout";
 import Navigation from "../components/Navigation";
-import LoginForm from "../components/LoginForm";
+import LoginForm from "../containers/LoginForm";
 import { AlertTemplate, options, AlertProvider } from "../config/alert";
 
 const Home = () => {

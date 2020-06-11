@@ -3,15 +3,15 @@ import { useAlert } from "react-alert";
 import Router from "next/router";
 import { handleLogin } from "../config/databaseApi";
 
-import Wrapper from "./Wrapper";
-import Header from "./Header";
-import Text from "./Text";
-import BottomText from "./BottomText";
+import Wrapper from "../components/Wrapper";
+import Header from "../components/Header";
+import Text from "../components/Text";
+import BottomText from "../components/BottomText";
 import {
   StyledForm,
   StyledInput,
   StyledButton,
-} from "./styled_components/FormComponents";
+} from "../components/styled_components/FormComponents";
 
 const LoginForm = () => {
   const [login, setLogin] = useState("");

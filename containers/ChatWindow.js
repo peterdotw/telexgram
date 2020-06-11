@@ -6,8 +6,11 @@ import {
   StyledForm,
   StyledInput,
   StyledButton,
-} from "./styled_components/FormComponents";
-import { StyledDiv, StyledMessages } from "./styled_components/ChatComponents";
+} from "../components/styled_components/FormComponents";
+import {
+  StyledDiv,
+  StyledMessages,
+} from "../components/styled_components/ChatComponents";
 
 const ChatWindow = (props) => {
   const [message, setMessage] = useState("");
