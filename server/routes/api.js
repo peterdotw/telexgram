@@ -40,7 +40,7 @@ router.post("/login", (req, res, next) => {
 
   passport.authenticate("local", (err, user) => {
     if (err) return next(err);
-    if (!user) return res.send("User not found");
+    if (!user) return res.send("Something wrong with login or password");
     req.login(user, (err) => {
       if (err) return next(err);
       res.send("OK");
