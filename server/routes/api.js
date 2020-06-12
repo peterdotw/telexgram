@@ -4,19 +4,14 @@ const passport = require("passport");
 
 const User = require("../../models/User");
 const Messages = require("../../models/Messages");
+const ensureAuthenticated = require("../../config/ensureAuthenticated");
 
 const {
   registerValidation,
   loginValidation,
 } = require("../../config/validation");
 
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) return next();
-  res.status(401).send("Access Denied");
-}
-
 router.post("/register", (req, res) => {
-  console.log(req.body);
   const { login, password } = req.body;
 
   const { error } = registerValidation(req.body);
@@ -55,10 +50,10 @@ router.post("/login", function (req, res, next) {
 
 router.get("/logout", (req, res) => {
   req.logout();
-  res.status(200).send("Logged out");
+  res.send("Logged out");
 });
 
-router.get("/chats", ensureAuthenticated, (req, res) => {
+router.get("/chats", ensureAuthenticated, (_, res) => {
   res.setHeader("Content-Type", "application/json");
   res.statusCode = 200;
   Messages.find({}).then((chat) => {
