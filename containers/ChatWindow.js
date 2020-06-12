@@ -6,8 +6,11 @@ import {
   StyledForm,
   StyledInput,
   StyledButton,
-} from "./styled_components/FormComponents";
-import { StyledDiv, StyledMessages } from "./styled_components/ChatComponents";
+} from "../components/styled_components/FormComponents";
+import {
+  StyledDiv,
+  StyledMessages,
+} from "../components/styled_components/ChatComponents";
 
 const ChatWindow = (props) => {
   const [message, setMessage] = useState("");
@@ -31,11 +34,11 @@ const ChatWindow = (props) => {
     };
     fetchChats();
 
-    socket.on("receive message", function (data) {
+    socket.on("receive message", (data) => {
       addMessage(data);
     });
 
-    return function cleanup() {
+    return () => {
       socket.close();
     };
   }, []);

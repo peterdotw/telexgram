@@ -46,7 +46,7 @@ const Layout = (props) => (
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="icon" href="https://socket.io/images/favicon.png" />
       <link
-        href="https://fonts.googleapis.com/css?family=Fira+Code&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600&display=swap"
         rel="stylesheet"
       />
     </Head>

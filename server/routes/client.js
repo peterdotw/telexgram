@@ -1,14 +1,10 @@
-const nextHandler = require("../../config/nextInit").nextHandler;
-
 const express = require("express");
 const router = express.Router();
 
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) return next();
-  res.status(401).send("Access Denied");
-}
+const nextHandler = require("../../config/nextInit").nextHandler;
+const ensureAuthenticated = require("../../config/ensureAuthenticated");
 
-router.get("/login/redirect", ensureAuthenticated, (req, res) => {
+router.get("/login/redirect", ensureAuthenticated, (_, res) => {
   return res.redirect("/dashboard");
 });
 
