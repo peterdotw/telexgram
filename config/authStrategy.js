@@ -10,20 +10,16 @@ const authStrategy = new LocalStrategy(
       login: login,
     }).then((user) => {
       if (!user) {
-        console.log("Incorrect username");
-        return done(null, false, {
-          message: "Incorrect username",
-        });
+        return done(null, false);
       }
 
       bcrypt.compare(password, user.password, (err, isMatch) => {
         if (err) throw err;
         if (isMatch) {
           return done(null, user);
-        } else {
-          console.log("Incorrect pass");
-          return done(null, false, { message: "Incorrect password" });
         }
+
+        return done(null, false);
       });
     });
   }
