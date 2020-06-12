@@ -19,26 +19,26 @@ const UserSchema = new mongoose.Schema(
 
 UserSchema.pre(
   "save",
-  function (next) {
+  (next) => {
     let user = this;
     if (!user.isModified("password")) {
       return next();
     }
 
-    bcrypt.genSalt(10, function (err, salt) {
-      bcrypt.hash(user.password, salt, function (err, hash) {
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(user.password, salt, (err, hash) => {
         user.password = hash;
         next();
       });
     });
   },
-  function (err) {
+  (err) => {
     next(err);
   }
 );
 
-UserSchema.methods.comparePassword = function (candidatePassword, next) {
-  bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {
+UserSchema.methods.comparePassword = (candidatePassword, next) => {
+  bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
     if (err) return next(err);
     next(null, isMatch);
   });

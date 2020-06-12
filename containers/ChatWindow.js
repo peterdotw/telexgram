@@ -34,11 +34,11 @@ const ChatWindow = (props) => {
     };
     fetchChats();
 
-    socket.on("receive message", function (data) {
+    socket.on("receive message", (data) => {
       addMessage(data);
     });
 
-    return function cleanup() {
+    return () => {
       socket.close();
     };
   }, []);

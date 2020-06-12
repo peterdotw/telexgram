@@ -34,7 +34,7 @@ router.post("/register", (req, res) => {
   });
 });
 
-router.post("/login", function (req, res, next) {
+router.post("/login", (req, res, next) => {
   const { error } = loginValidation(req.body);
   if (error) return res.send(error.details[0].message);
 
